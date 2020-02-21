@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -29,12 +30,17 @@
 
       <form id="loginForm" class="form-signin" role="form" action="doLgoin"  method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
-		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登录账号" autofocus>
+        	<c:if test="${not empty message}">
+      	<div class="form-group has-success has-feedback">
+			${message }
+		  </div> 
+      	</c:if>
+		  <div class="form-group has-success has-feedback"> <%-- value="${param.loginacct}" --%>
+			<input type="text" class="form-control" id="loginacct" name="loginacct" value="superadmin" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div> 
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
+			<input type="password" class="form-control" id="userpswd" name="userpswd" value="123456" placeholder="请输入登录密码" style="margin-top:10px;">
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 		  </div>
 		  
