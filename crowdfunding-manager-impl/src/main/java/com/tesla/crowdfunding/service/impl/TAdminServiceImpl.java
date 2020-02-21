@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TAdmin;
 import com.tesla.crowdfunding.bean.TAdminExample;
 import com.tesla.crowdfunding.exception.LoginException;
@@ -74,4 +75,15 @@ public class TAdminServiceImpl implements TAdminService {
 //			throw new LoginException(Const.LOGIN_LOGINACCT_ERROR);
 //		}
 //	}
+
+	@Override
+	public PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap) {
+		TAdminExample example = new TAdminExample();
+
+		List<TAdmin> list = adminMapper.selectByExample(example);
+
+		PageInfo<TAdmin> page = new PageInfo<TAdmin>(list, 5);
+
+		return page;
+	}
 }
