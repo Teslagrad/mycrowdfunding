@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh_CN">
   <head>
@@ -59,20 +60,21 @@
               </thead>
               <tbody>
               
-              ${page}
               
-                <tr>
-                  <td>1</td>
-				  <td><input type="checkbox"></td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
+              	<c:forEach items="${page.list }" var="admin" varStatus="status">
+	                <tr>
+	                  <td>${status.count}</td>
+					  <td><input type="checkbox"></td>
+	                  <td>${admin.loginacct }</td>
+	                  <td>${admin.username }</td>
+	                  <td>${admin.email }</td>
+	                  <td>
+					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
+					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
+						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+					  </td>
+	                </tr>
+                </c:forEach>
               </tbody>
 			  <tfoot>
 			     <tr >
