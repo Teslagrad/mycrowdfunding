@@ -14,6 +14,7 @@ import com.tesla.crowdfunding.exception.LoginException;
 import com.tesla.crowdfunding.mapper.TAdminMapper;
 import com.tesla.crowdfunding.service.TAdminService;
 import com.tesla.crowdfunding.util.Const;
+import com.tesla.crowdfunding.util.MD5Util;
 
 @Service
 public class TAdminServiceImpl implements TAdminService {
@@ -40,7 +41,7 @@ public class TAdminServiceImpl implements TAdminService {
 
 		TAdmin admin = list.get(0);
 		// 4.判断密码是否一致
-		if (!admin.getUserpswd().equals(userpswd)) {
+		if (!admin.getUserpswd().equals(MD5Util.digest(userpswd))) {
 			throw new LoginException(Const.LOGIN_USERPSWD_ERROR);
 		}
 		// 5.返回结果
