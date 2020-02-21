@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+  <artifactId>crowdfunding-main</artifactId>
+	<packaging>war</packaging>
+	<name>crowdfunding-main</name>
+	<description>web项目：存放静态资源，jsp，XML配置文件等</description>
+	<!-- 继承 -->
+	<parent>
+		<groupId>com.tesla.crowdfunding</groupId>
+		<artifactId>crowdfunding-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../crowdfunding-parent/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc-portlet</artifactId>
+		</dependency>
+
+		<!-- 依赖的WEB类库 -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<!-- 目标环境已经有了 -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tesla.crowdfunding</groupId>
+			<artifactId>crowdfunding-manager-impl</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+	<build>
+    <plugins>
+     <plugin>
+       <groupId>org.mybatis.generator</groupId>
+       <artifactId>mybatis-generator-maven-plugin</artifactId>
+       <version>1.3.7</version>
+       <dependencies>
+         <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.42</version>
+         </dependency>
+       </dependencies>
+     </plugin>
+    </plugins>
+  </build>
+</project>
