@@ -1,53 +1,66 @@
 package com.tesla.crowdfunding.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TMenu {
-    private Integer id;
+	private Integer id;
 
-    private Integer pid;
+	private Integer pid;
 
-    private String name;
+	private String name;
 
-    private String icon;
+	private String icon;
 
-    private String url;
+	private String url;
 
-    public Integer getId() {
-        return id;
-    }
+	private List<TMenu> children = new ArrayList<TMenu>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public List<TMenu> getChildren() {
+		return children;
+	}
 
-    public Integer getPid() {
-        return pid;
-    }
+	public void setChildren(List<TMenu> children) {
+		this.children = children;
+	}
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public Integer getPid() {
+		return pid;
+	}
 
-    public String getIcon() {
-        return icon;
-    }
+	public void setPid(Integer pid) {
+		this.pid = pid;
+	}
 
-    public void setIcon(String icon) {
-        this.icon = icon == null ? null : icon.trim();
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon == null ? null : icon.trim();
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url == null ? null : url.trim();
+	}
 }
