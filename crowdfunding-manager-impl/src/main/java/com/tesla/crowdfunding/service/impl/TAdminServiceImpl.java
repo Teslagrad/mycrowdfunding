@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TAdmin;
 import com.tesla.crowdfunding.bean.TAdminExample;
+import com.tesla.crowdfunding.bean.TAdminExample.Criteria;
 import com.tesla.crowdfunding.exception.LoginException;
 import com.tesla.crowdfunding.mapper.TAdminMapper;
 import com.tesla.crowdfunding.service.TAdminService;
@@ -79,8 +80,21 @@ public class TAdminServiceImpl implements TAdminService {
 
 	@Override
 	public PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap) {
+		String condition = (String) paramMap.get("condition");
+
 		TAdminExample example = new TAdminExample();
 
+		if (!"".equals(condition)) {
+			example.createCriteria().andLoginacctLike("%" + condition + "%");
+			Criteria criteria2 = example.createCriteria();
+			criteria2.andUsernameLike("%" + condition + "%");
+
+			Criteria criteria3 = example.createCriteria();
+			criteria3.andEmailLike("%" + condition + "%");
+
+			example.or(criteria2);
+			example.or(criteria3);
+		}
 		example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
 
 		List<TAdmin> list = adminMapper.selectByExample(example);
