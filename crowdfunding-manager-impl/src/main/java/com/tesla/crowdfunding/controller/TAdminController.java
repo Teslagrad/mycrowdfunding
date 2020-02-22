@@ -23,6 +23,24 @@ public class TAdminController {
 	@Autowired
 	TAdminService adminService;
 
+	@RequestMapping("/admin/doUpdate")
+	public String doUpdate(TAdmin admin, Integer pageNum) {
+		log.debug("表单提交成功");
+		adminService.updateTAdmin(admin);
+
+		log.debug("修改成功跳转回用户维护页面");
+		return "redirect:/admin/index?pageNum=" + pageNum; // 分页合理化，没这么多也，就到最后一页；在spring和mybatis的xml文件中添加分页合理化
+	}
+
+	@RequestMapping("/admin/toUpdate")
+	public String toUpdate(Integer id, Model model) {
+
+		TAdmin admin = adminService.getTAdminById(id);
+		model.addAttribute("admin", admin);
+		log.debug("跳转到修改页面");
+		return "admin/update";
+	}
+
 	@RequestMapping("/admin/toAdd")
 	public String toAdd() {
 		log.debug("跳转到新增页面");

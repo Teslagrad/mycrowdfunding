@@ -81,7 +81,7 @@ public class TAdminServiceImpl implements TAdminService {
 	public PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap) {
 		TAdminExample example = new TAdminExample();
 
-//		example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
+		example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
 
 		List<TAdmin> list = adminMapper.selectByExample(example);
 
@@ -99,5 +99,16 @@ public class TAdminServiceImpl implements TAdminService {
 
 		adminMapper.insertSelective(admin); // 动态sql，有选择性保存，null值的不保存
 
+	}
+
+	@Override
+	public TAdmin getTAdminById(Integer id) {
+
+		return adminMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateTAdmin(TAdmin admin) {
+		adminMapper.updateByPrimaryKeySelective(admin);
 	}
 }
