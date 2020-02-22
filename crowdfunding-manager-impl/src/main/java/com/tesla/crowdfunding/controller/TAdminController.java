@@ -23,9 +23,24 @@ public class TAdminController {
 	@Autowired
 	TAdminService adminService;
 
+	@RequestMapping("/admin/toAdd")
+	public String toAdd() {
+		log.debug("跳转到新增页面");
+		return "admin/add";
+	}
+
+	@RequestMapping("/admin/doAdd")
+	public String doAdd(TAdmin admin) {
+		log.debug("表单提交成功");
+		adminService.saveTAdmin(admin);
+
+		log.debug("添加成功跳转回用户维护页面最后一页");
+		return "redirect:/admin/index?pageNum=" + Integer.MAX_VALUE;// 分页合理化，没这么多也，就到最后一页；在spring和mybatis的xml文件中添加分页合理化
+	}
+
 	@RequestMapping("/admin/index") // 你锁映射的模块的路径名
 	public String index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-			@RequestParam(value = "pageNum", required = false, defaultValue = "10") Integer pageSize, Model model) {
+			@RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize, Model model) {
 
 		PageHelper.startPage(pageNum, pageSize);// 线程绑定
 

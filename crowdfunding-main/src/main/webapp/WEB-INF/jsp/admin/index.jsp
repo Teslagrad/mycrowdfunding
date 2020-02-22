@@ -43,7 +43,7 @@
   <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${PATH}/admin/toAdd'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -80,13 +80,28 @@
 			     <tr >
 				     <td colspan="6" align="center">
 						<ul class="pagination">
+						<c:if test="${page.isFirstPage }">
 								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
+						</c:if>
+						<c:if test="${!page.isFirstPage }">
+								<li ><a href="${PATH}/admin/index?pageNum=${page.pageNum-1}">上一页</a></li>
+						</c:if>
+						<c:forEach items="${page.navigatepageNums }" var="num">
+							<c:if test="${num==page.pageNum }">
+									<li class="active"><a href="${PATH}/admin/index?pageNum=${num}">${num} <span class="sr-only">(current)</span></a></li>
+							</c:if>		
+							<c:if test="${num!=page.pageNum }">
+									<li><a href="${PATH}/admin/index?pageNum=${num}">${num }</a></li>	
+							</c:if>		
+											
+						</c:forEach>
+   						<c:if test="${page.isLastPage }">
+								<li class="disabled"><a href="#">下一页</a></li>
+						</c:if>
+						<c:if test="${!page.isLastPage }">
+								<li><a href="${PATH}/admin/index?pageNum=${page.pageNum+1}">下一页</a></li>
+						</c:if>
+								
 							 </ul>
 					 </td>
 				 </tr>

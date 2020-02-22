@@ -14,6 +14,7 @@ import com.tesla.crowdfunding.bean.TAdminExample;
 import com.tesla.crowdfunding.exception.LoginException;
 import com.tesla.crowdfunding.mapper.TAdminMapper;
 import com.tesla.crowdfunding.service.TAdminService;
+import com.tesla.crowdfunding.util.AppDateUtils;
 import com.tesla.crowdfunding.util.Const;
 import com.tesla.crowdfunding.util.MD5Util;
 
@@ -80,10 +81,23 @@ public class TAdminServiceImpl implements TAdminService {
 	public PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap) {
 		TAdminExample example = new TAdminExample();
 
+//		example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
+
 		List<TAdmin> list = adminMapper.selectByExample(example);
 
 		PageInfo<TAdmin> page = new PageInfo<TAdmin>(list, 5);
 
 		return page;
+	}
+
+	@Override
+	public void saveTAdmin(TAdmin admin) {
+
+		admin.setUserpswd(MD5Util.digest(Const.DEFAULT_USERPSWD));
+
+		admin.setCreatetime(AppDateUtils.getFormatTime());
+
+		adminMapper.insertSelective(admin); // 动态sql，有选择性保存，null值的不保存
+
 	}
 }
