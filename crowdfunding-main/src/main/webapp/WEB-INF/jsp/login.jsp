@@ -61,6 +61,13 @@
      <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
     <script>
     function dologin() {
+    	var loginacct = $("#loginacct").val();
+    	if($.trim(loginacct)==""){
+    		//提示层
+
+    		layer.msg('用户名称不能为空',{time:1500,icon:0});
+    		return false;
+    	}
        $("#loginForm").submit();
     }
     </script>
