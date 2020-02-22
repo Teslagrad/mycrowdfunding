@@ -95,7 +95,7 @@ public class TAdminServiceImpl implements TAdminService {
 			example.or(criteria2);
 			example.or(criteria3);
 		}
-		example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
+		// example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
 
 		List<TAdmin> list = adminMapper.selectByExample(example);
 
@@ -130,6 +130,13 @@ public class TAdminServiceImpl implements TAdminService {
 	public void deleteTAdmin(Integer id) {
 
 		adminMapper.deleteByPrimaryKey(id);
+
+	}
+
+	@Override
+	public void deleteBatch(List<Integer> idList) {
+
+		adminMapper.deleteBatch(idList);// 自己定义一个批量删除的操作
 
 	}
 }

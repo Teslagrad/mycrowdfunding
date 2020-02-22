@@ -1,5 +1,6 @@
 package com.tesla.crowdfunding.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
@@ -18,5 +19,7 @@ public interface TAdminService {
 	void updateTAdmin(TAdmin admin);
 
 	void deleteTAdmin(Integer id);
+
+	void deleteBatch(List<Integer> idList);
 
 }
