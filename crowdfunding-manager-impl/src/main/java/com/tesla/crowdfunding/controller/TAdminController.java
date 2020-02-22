@@ -23,13 +23,22 @@ public class TAdminController {
 	@Autowired
 	TAdminService adminService;
 
+	@RequestMapping("/admin/doDelete")
+	public String doDelete(Integer id, Integer pageNum) {
+		log.debug("处理删除。。。");
+		adminService.deleteTAdmin(id);
+
+		log.debug("删除成功跳转回用户维护页面当前页");
+		return "redirect:/admin/index?pageNum=" + pageNum;
+	}
+
 	@RequestMapping("/admin/doUpdate")
 	public String doUpdate(TAdmin admin, Integer pageNum) {
 		log.debug("表单提交成功");
 		adminService.updateTAdmin(admin);
 
-		log.debug("修改成功跳转回用户维护页面");
-		return "redirect:/admin/index?pageNum=" + pageNum; // 分页合理化，没这么多也，就到最后一页；在spring和mybatis的xml文件中添加分页合理化
+		log.debug("修改成功跳转回用户维护页面当前页");
+		return "redirect:/admin/index?pageNum=" + pageNum;
 	}
 
 	@RequestMapping("/admin/toUpdate")

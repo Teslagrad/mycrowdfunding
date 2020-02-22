@@ -71,7 +71,7 @@
 	                  <td>
 					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='${PATH}/admin/toUpdate?pageNum=${page.pageNum}&id=${admin.id}'"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+						  <button type="button" adminId="${admin.id}" class="deleteBtnClass btn btn-danger btn-xs" ><i class=" glyphicon glyphicon-remove"></i></button>
 					  </td>
 	                </tr>
                 </c:forEach>
@@ -130,6 +130,19 @@
 				});
             });
           
+            $(".deleteBtnClass").click(function(){
+            	var id=$(this).attr("adminId");
+            	//询问框
+				layer.confirm('是否确定删除该条数据？',{btn:['确定','取消']},function(index){
+					
+					window.location.href="${PATH}/admin/doDelete?pageNum=${page.pageNum}&id="+id;
+					layer.close(index);
+				},function(index){
+					layer.close(index);
+				});
+            	
+            	
+            });
         </script>
   </body>
 </html>
