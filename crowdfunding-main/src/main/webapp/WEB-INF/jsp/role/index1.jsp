@@ -37,10 +37,10 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input id="condition" class="form-control has-success" type="text" placeholder="请输入查询条件">
+      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
     </div>
   </div>
-  <button id="queryBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
 <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
@@ -94,17 +94,13 @@
             initData(1);//初始化数据的函数（第一页）
             });
             
-            
-            var json={
-					pageNum:1,
-					pageSize:2
-					
-			};
-            
          	function initData(pageNum) {
 				//1.发起ajax请求，获取分页数据
 				
-				json.pageNum=pageNum;
+				var json={
+						pageNum:pageNum,
+						pageSize:2
+				};
 				
 				var index=-1;
 				$.ajax({
@@ -187,16 +183,6 @@
 				}
 				
 			}
-			
-			
-			
-			$("#queryBtn").click(function(){
-				var condition = $("#condition").val();
-				json.condition = condition;
-				initData(1);
-				
-			});
-			
         </script>
   </body>
 </html>

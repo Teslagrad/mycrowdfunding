@@ -37,13 +37,15 @@ public class TRoleController {
 	@RequestMapping("role/loadData")
 	public PageInfo<TRole> loadData(
 			@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize) {
+			@RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize,
+			@RequestParam(value = "condition", required = false, defaultValue = "") String condition) {
 
 		PageHelper.startPage(pageNum, pageSize);
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();// 考虑到参数可能变多，用集合存
 
 		// paramMap.put(key, value);
+		paramMap.put("condition", condition);
 
 		PageInfo<TRole> page = roleService.listRolePage(paramMap);
 
