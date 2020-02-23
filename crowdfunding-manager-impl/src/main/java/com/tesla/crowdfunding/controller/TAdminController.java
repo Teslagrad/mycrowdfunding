@@ -80,7 +80,9 @@ public class TAdminController {
 		adminService.saveTAdmin(admin);
 
 		log.debug("添加成功跳转回用户维护页面最后一页");
-		return "redirect:/admin/index?pageNum=" + Integer.MAX_VALUE;// 分页合理化，没这么多也，就到最后一页；在spring和mybatis的xml文件中添加分页合理化
+		// return "redirect:/admin/index";
+		return "redirect:/admin/index?pageNum=" + Integer.MAX_VALUE;//
+		// 分页合理化，没这么多也，就到最后一页；在spring和mybatis的xml文件中添加分页合理化
 	}
 
 	@RequestMapping("/admin/index") // 你锁映射的模块的路径名

@@ -43,7 +43,7 @@
   <button id="queryBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<button id="addBtn" type="button" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -76,7 +76,34 @@
         </div>
       </div>
     </div>
+    
+    
+    
+    <!-- 添加数据模态框 -->
+<div id="addModal" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加角色</h4>
+      </div>
+      <div class="modal-body">
+		  <div class="form-group">
+			<label for="exampleInputPassword1">角色名称</label>
+			<input type="text" class="form-control" id="name" name="name" placeholder="请输入角色名称">
+		  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button id="saveBtn" type="button" class="btn btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
 
+<%-- 显示数据和查询 --%>
      <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
         <script type="text/javascript">
             $(function () {//页面加载完需要执行事件处理
@@ -197,6 +224,46 @@
 				
 			});
 			
+//=== 添加开始===============================================================================	
+	
+	$("#addBtn").click(function(){
+		$("#addModal").modal({
+			show:true,
+			backdrop:'static',
+			keyboard:false
+		});
+		
+	});
+	
+	$("#saveBtn").click(function(){
+		var name = $("#addModal input[name='name']").val();
+		
+		$.ajax({
+			type:"post",
+			url:"${PATH}/role/doAdd",
+			data:{
+				'name':name
+			},
+			beforeSend:function(){
+				return true;
+			},
+			success:function(result){
+				if("ok"==result){
+					layer.msg("保存成功",{time:1000},function(){
+						$("#addModal").modal('hide');
+						$("#addModal input[name='name']").val("");
+					});
+				}else{
+					layer.msg("保存失败");
+				}	
+			}
+			
+		});
+	});
+	
+	
+	//=== 添加结束===============================================================================
+	
         </script>
   </body>
 </html>

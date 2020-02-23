@@ -23,6 +23,15 @@ public class TRoleController {
 	@Autowired
 	TRoleService roleService;
 
+	@ResponseBody // 数据转换,异步请求都要加
+	@RequestMapping("/role/doAdd")
+	public String doAdd(TRole role) {
+		roleService.saveTRole(role);
+
+		log.debug("角色添加成功返回");
+		return "ok";
+	}
+
 	/**
 	 * 
 	 * 启用了消息转换器，HttpMessageConverter

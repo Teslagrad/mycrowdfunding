@@ -9,4 +9,6 @@ public interface TRoleService {
 
 	PageInfo<TRole> listRolePage(Map<String, Object> paramMap);
 
+	void saveTRole(TRole role);
+
 }

@@ -31,10 +31,18 @@ public class TRoleServiceImpl implements TRoleService {
 			TRoleExample example = new TRoleExample();
 			example.createCriteria().andNameLike("%" + condition + "%");
 
+			// example.setOrderByClause("id desc");// 根据id条件，倒叙
+
 			list = roleMapper.selectByExample(example);
 		}
 
 		PageInfo<TRole> page = new PageInfo<TRole>(list, 5);
 		return page;
+	}
+
+	@Override
+	public void saveTRole(TRole role) {
+
+		roleMapper.insertSelective(role);
 	}
 }
