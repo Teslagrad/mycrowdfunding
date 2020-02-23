@@ -24,6 +24,24 @@ public class TRoleController {
 	TRoleService roleService;
 
 	@ResponseBody // 数据转换,异步请求都要加
+	@RequestMapping("/role/doUpdate")
+	public String doUpdate(TRole role) {
+		roleService.updateTRole(role);
+
+		log.debug("角色修改成功返回");
+		return "ok";
+	}
+
+	@ResponseBody // 数据转换,异步请求都要加
+	@RequestMapping("/role/getRoleById")
+	public TRole getRoleById(Integer id) {
+
+		log.debug("查询要修改的角色返回");
+		return roleService.getRoleById(id);
+
+	}
+
+	@ResponseBody // 数据转换,异步请求都要加
 	@RequestMapping("/role/doAdd")
 	public String doAdd(TRole role) {
 		roleService.saveTRole(role);

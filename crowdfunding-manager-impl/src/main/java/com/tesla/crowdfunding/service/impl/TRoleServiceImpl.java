@@ -45,4 +45,16 @@ public class TRoleServiceImpl implements TRoleService {
 
 		roleMapper.insertSelective(role);
 	}
+
+	@Override
+	public TRole getRoleById(Integer id) {
+
+		return roleMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateTRole(TRole role) {
+
+		roleMapper.updateByPrimaryKeySelective(role);
+	}
 }

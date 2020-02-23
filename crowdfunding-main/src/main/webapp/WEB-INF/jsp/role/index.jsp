@@ -100,6 +100,29 @@
     </div>
   </div>
 </div>
+
+    <!-- 修改数据模态框 -->
+<div id="updateModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改角色</h4>
+      </div>
+      <div class="modal-body">
+		  <div class="form-group">
+			<label for="exampleInputPassword1">角色名称</label>
+			<input type="hidden" name="id"></input>
+			<input type="text" class="form-control" id="name" name="name" placeholder="请输入角色名称">
+		  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button id="updateBtn" type="button" class="btn btn-primary">修改</button>
+      </div>
+    </div>
+  </div>
+</div>
     
     
 
@@ -128,6 +151,8 @@
 					
 			};
             
+            
+            //===== 分页查询开始=================================================================
          	function initData(pageNum) {
 				//1.发起ajax请求，获取分页数据
 				
@@ -174,7 +199,7 @@
 					var td=$('<td></td>');
 					
 					td.append('<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>');
-					td.append('<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>');
+					td.append('<button type="button" roleId="'+e.id+'" class="updateClass btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>');
 					td.append('<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>');
 					
 					tr.append(td);
@@ -215,7 +240,7 @@
 				
 			}
 			
-			
+			 //===== 分页查询结束=================================================================
 			
 			$("#queryBtn").click(function(){
 				var condition = $("#condition").val();
@@ -225,7 +250,7 @@
 			});
 			
 //=== 添加开始===============================================================================	
-	
+	//弹出模态框
 	$("#addBtn").click(function(){
 		$("#addModal").modal({
 			show:true,
@@ -252,6 +277,7 @@
 					layer.msg("保存成功",{time:1000},function(){
 						$("#addModal").modal('hide');
 						$("#addModal input[name='name']").val("");
+						initData(1);//添加初始化第一页，倒叙排序
 					});
 				}else{
 					layer.msg("保存失败");
@@ -263,6 +289,54 @@
 	
 	
 	//=== 添加结束===============================================================================
+		
+		
+	//=== 修改结束===============================================================================	
+		
+	/* $(".updateClass").click(function(){
+		alert("update");
+	});	 */
+		
+	$('tbody').on('click','.updateClass',function(){
+		this.roleId;//Dom对象不能获取自定义属性
+		var roleId=$(this).attr("roleId");
+		
+		$.get("${PATH}/role/getRoleById",{id:roleId},function(result){
+			console.log(result);
+			
+			//弹出模态框
+			$("#updateModal").modal({
+				show:true,
+				backdrop:'static',
+				keyboard:false
+			});	
+			
+			$("#updateModal input[name='name']").val(result.name);
+			$("#updateModal input[name='id']").val(result.id);//隐藏域
+			
+		});
+	});
+	
+	
+	$("#updateBtn").click(function(){
+		var name = $("#updateModal input[name='name']").val();
+		var id = $("#updateModal input[name='id']").val();
+		
+		$.post("${PATH}/role/doUpdate",{id:id,name:name},function(result){
+			if("ok"==result){
+				layer.msg("修改成功",{time:1000},function(){
+					$("#updateModal").modal('hide');
+					initData(json.pageNum);//初始化当前页
+				});
+			}else{
+				layer.msg("修改失败");
+			}
+		});
+		
+		
+	});
+	
+	//=== 修改结束===============================================================================	
 	
         </script>
   </body>
