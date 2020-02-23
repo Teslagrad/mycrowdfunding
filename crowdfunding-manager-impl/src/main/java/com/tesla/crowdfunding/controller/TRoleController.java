@@ -24,6 +24,15 @@ public class TRoleController {
 	TRoleService roleService;
 
 	@ResponseBody // 数据转换,异步请求都要加
+	@RequestMapping("/role/doDelete")
+	public String doDelete(Integer id) {
+		log.debug("开始删除");
+		roleService.deleteTRole(id);
+
+		return "ok";
+	}
+
+	@ResponseBody // 数据转换,异步请求都要加
 	@RequestMapping("/role/doUpdate")
 	public String doUpdate(TRole role) {
 		roleService.updateTRole(role);

@@ -200,7 +200,7 @@
 					
 					td.append('<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>');
 					td.append('<button type="button" roleId="'+e.id+'" class="updateClass btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>');
-					td.append('<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>');
+					td.append('<button type="button" roleId="'+e.id+'" class="deleteClass btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>');
 					
 					tr.append(td);
 					tr.appendTo($('tbody'));
@@ -262,7 +262,7 @@
 	
 	$("#saveBtn").click(function(){
 		var name = $("#addModal input[name='name']").val();
-		
+
 		$.ajax({
 			type:"post",
 			url:"${PATH}/role/doAdd",
@@ -299,7 +299,7 @@
 		
 	$('tbody').on('click','.updateClass',function(){
 		this.roleId;//Dom对象不能获取自定义属性
-		var roleId=$(this).attr("roleId");
+		var roleId=$(this).attr("roleId");//dom对象转换为jQuery对象
 		
 		$.get("${PATH}/role/getRoleById",{id:roleId},function(result){
 			console.log(result);
@@ -338,6 +338,31 @@
 	
 	//=== 修改结束===============================================================================	
 	
+	//=== 删除开始===============================================================================
+	$("tbody").on('click','.deleteClass',function(){
+		var id =$(this).attr("roleId");
+		
+		layer.confirm("确定删除吗？",{btn:['确定','取消']},function(index){
+			$.post("${PATH}/role/doDelete",{id:id},function(result){
+				if("ok"==result){
+					layer.msg("删除成功",{time:1000},function(){
+						initData(json.pageNum);//初始化当前页
+					});
+				}else{
+					layer.msg("删除失败");
+				}
+			});
+			layer.close(index);
+		},function(index){
+			layer.close(index);
+		});
+		
+		
+	});	
+
+	
+		
+	//=== 删除结束===============================================================================	
         </script>
   </body>
 </html>
