@@ -1,6 +1,7 @@
 package com.tesla.crowdfunding.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TRole;
 import com.tesla.crowdfunding.service.TRoleService;
+import com.tesla.crowdfunding.util.Datas;
 
 @Controller
 public class TRoleController {
@@ -22,6 +24,29 @@ public class TRoleController {
 
 	@Autowired
 	TRoleService roleService;
+
+	@ResponseBody
+	@RequestMapping("/role/listPermissionIdByRoleId")
+	public List<Integer> listPermissionIdByRoleId(Integer roleId) {
+
+		log.debug("roleId={}", roleId);
+
+		List<Integer> list = roleService.listPermissionIdByRoleId(roleId);
+
+		return list;
+	}
+
+	@ResponseBody
+	@RequestMapping("/role/doAssignPermissionToRole")
+	public String doAssignPermissionToRole(Integer roleId, Datas ds) {
+
+		log.debug("roleId={}", roleId);
+		log.debug("permissionIds={}", ds.getIds());
+
+		roleService.saveRoleAndPermissionRelationship(roleId, ds.getIds());
+
+		return "ok";
+	}
 
 	@ResponseBody // 数据转换,异步请求都要加
 	@RequestMapping("/role/doDelete")

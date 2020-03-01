@@ -10,8 +10,10 @@ import org.springframework.util.StringUtils;
 import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TRole;
 import com.tesla.crowdfunding.bean.TRoleExample;
+import com.tesla.crowdfunding.bean.TRolePermissionExample;
 import com.tesla.crowdfunding.mapper.TAdminRoleMapper;
 import com.tesla.crowdfunding.mapper.TRoleMapper;
+import com.tesla.crowdfunding.mapper.TRolePermissionMapper;
 import com.tesla.crowdfunding.service.TRoleService;
 
 @Service
@@ -22,6 +24,9 @@ public class TRoleServiceImpl implements TRoleService {
 
 	@Autowired
 	TAdminRoleMapper adminRoleMapper;
+
+	@Autowired
+	TRolePermissionMapper rolePermissionMapper;
 
 	@Override
 	public PageInfo<TRole> listRolePage(Map<String, Object> paramMap) {
@@ -84,6 +89,25 @@ public class TRoleServiceImpl implements TRoleService {
 
 	@Override
 	public void deleteAdminAndRoleRelationship(Integer[] roleId, Integer adminId) {
+
 		adminRoleMapper.deleteAdminAndRoleRelationship(roleId, adminId);
+	}
+
+	@Override
+	public void saveRoleAndPermissionRelationship(Integer roleId, List<Integer> ids) {
+		// 把所有权限去掉，再一次性把打勾的加上
+		TRolePermissionExample example = new TRolePermissionExample();
+
+		example.createCriteria().andRoleidEqualTo(roleId);
+
+		rolePermissionMapper.deleteByExample(example);
+
+		rolePermissionMapper.saveRoleAndPermissionRelationship(roleId, ids);
+	}
+
+	@Override
+	public List<Integer> listPermissionIdByRoleId(Integer roleId) {
+
+		return rolePermissionMapper.listPermissionIdByRoleId(roleId);
 	}
 }

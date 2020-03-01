@@ -22,7 +22,15 @@
 		where t_admin.id = #{adminId}
 	</select>
   
-  
+  <!-- List<TPermission> getPermissionByMenuid(Integer mid); -->
+	<select id="getPermissionByMenuid" resultMap="BaseResultMap">
+		SELECT p.* FROM
+		`t_permission` p
+		LEFT JOIN `t_permission_menu` rpm
+		ON rpm.permissionid =
+		p.id
+		WHERE rpm.menuid=#{mid}
+	</select>
   
   <sql id="Example_Where_Clause">
     <where>
