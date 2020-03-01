@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -30,34 +31,34 @@ public class TAdminController {
 	@Autowired
 	TRoleService roleService;
 
-//	@ResponseBody
-//	@RequestMapping("/admin/doUnAssign")
-//	public String doUnAssign(Integer[] roleId, Integer adminId) {
-//
-//		log.debug("adminId={}", adminId);
-//		for (Integer rId : roleId) {
-//			log.debug("roleId={}", rId);
-//		}
-//
-//		roleService.deleteAdminAndRoleRelationship(roleId, adminId);
-//
-//		return "ok";
-//	}
-//
-//	// "id=5&id=7&id=8&adminId=1"
-//	@ResponseBody
-//	@RequestMapping("/admin/doAssign")
-//	public String doAssign(Integer[] roleId, Integer adminId) {
-//
-//		log.debug("adminId={}", adminId);
-//		for (Integer rId : roleId) {
-//			log.debug("roleId={}", rId);
-//		}
-//
-//		roleService.saveAdminAndRoleRelationship(roleId, adminId);
-//
-//		return "ok";
-//	}
+	@ResponseBody
+	@RequestMapping("/admin/doUnAssign")
+	public String doUnAssign(Integer[] roleId, Integer adminId) {
+
+		log.debug("adminId={}", adminId);
+		for (Integer rId : roleId) {
+			log.debug("roleId={}", rId);
+		}
+
+		roleService.deleteAdminAndRoleRelationship(roleId, adminId);
+
+		return "ok";
+	}
+
+	// "id=5&id=7&id=8&adminId=1"
+	@ResponseBody
+	@RequestMapping("/admin/doAssign")
+	public String doAssign(Integer[] roleId, Integer adminId) {
+
+		log.debug("adminId={}", adminId);
+		for (Integer rId : roleId) {
+			log.debug("roleId={}", rId);
+		}
+
+		roleService.saveAdminAndRoleRelationship(roleId, adminId);
+
+		return "ok";
+	}
 
 	@RequestMapping("/admin/toAssign")
 	public String toAssign(String id, Model model) {

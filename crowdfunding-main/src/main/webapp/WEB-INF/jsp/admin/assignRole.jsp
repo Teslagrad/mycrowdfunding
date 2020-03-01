@@ -92,21 +92,22 @@
             		return false ;
             	}
             	
-            	var str = '';  //"id=5&id=7&id=8&adminId=1";
+            	var str ='';  //"id=5&id=7&id=8&adminId=1";
             	
             	$.each(leftSelectedRoleList,function(i,e){
             		var roleId = e.value;
             		str+="roleId="+roleId+"&" ;
             	});
             	
-            	str+="adminId=${param.id}";
+            	str+="adminId=${param.id}"; 
 
             	$.ajax({
             		type:"post",
             		url:"${PATH}/admin/doAssign",
             		data:str,
             		success:function(result){
-            			if("ok"==result){            				
+            			if("ok"==result){
+            				
             				layer.msg("分配成功.",{icon:6,time:1000},function(){
             					$("#rightRoleList").append(leftSelectedRoleList.clone());
                             	leftSelectedRoleList.remove();
@@ -115,14 +116,14 @@
             				layer.msg("分配失败.",{icon:5,time:1000});
             			}
             		}
-            	});
+            	}); 
             	
             });
             
             //取消分配角色
 			$("#rightToLeftBtn").click(function(){
 				var rightSelectedRoleList = $("#rightRoleList option:selected");
-            	
+			
             	
             	if(rightSelectedRoleList.length == 0){
             		layer.msg("请选择已分配角色再取消分配!",{icon:5,time:2000});
@@ -130,7 +131,7 @@
             	}
             	
             	var str = '';  //"id=5&id=7&id=8&adminId=1";
-            	
+            
             	$.each(rightSelectedRoleList,function(i,e){
             		var roleId = e.value;
             		str+="roleId="+roleId+"&" ;
@@ -152,7 +153,7 @@
             				layer.msg("取消分配失败.",{icon:5,time:1000});
             			}
             		}
-            	});
+            	});  
             });
             
             

@@ -12,6 +12,23 @@
   		select roleid from t_admin_role where adminid=#{id}
   </select>
   
+  <!-- void saveAdminAndRoleRelationship(@Param("roleIds") Integer[] roleId, @Param("adminId") Integer adminId); -->
+  <insert id="saveAdminAndRoleRelationship">
+  	insert into t_admin_role(adminid,roleid) values
+  	<foreach collection="roleIds" item="roleId" separator=",">
+  	(#{adminId},#{roleId})
+  	</foreach>
+  </insert>
+  
+  
+  <!-- void deleteAdminAndRoleRelationship(@Param("roleIds") Integer[] roleId, @Param("adminId") Integer adminId); -->
+  <delete id="deleteAdminAndRoleRelationship">
+  	delete from t_admin_role where adminid=#{adminId} and roleid in 
+  	<foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+  	#{roleId}
+  	</foreach>
+  </delete>
+  
   
   
   <sql id="Example_Where_Clause">
