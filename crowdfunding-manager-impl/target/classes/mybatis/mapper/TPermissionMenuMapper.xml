@@ -6,6 +6,18 @@
     <result column="menuid" jdbcType="INTEGER" property="menuid" />
     <result column="permissionid" jdbcType="INTEGER" property="permissionid" />
   </resultMap>
+  
+  <!--void insertBatch(@Param("mid") Integer mid, @Param("perIdArray") List<Integer> perIdArray);  -->
+  <insert id="insertBatch">
+		INSERT INTO `t_permission_menu`
+		(permissionid,menuid)
+		VALUES
+		<foreach collection="perIdArray" item="perId" separator=",">
+			(#{perId},#{mid})
+		</foreach>
+	</insert>
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
