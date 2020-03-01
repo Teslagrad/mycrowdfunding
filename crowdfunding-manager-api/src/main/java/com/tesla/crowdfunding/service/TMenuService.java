@@ -10,4 +10,12 @@ public interface TMenuService {
 
 	List<TMenu> listMenuAllTree();
 
+	void deleteTMenu(Integer id);
+
+	void updateTMenu(TMenu menu);
+
+	TMenu getMenuById(Integer id);
+
+	void saveTMenu(TMenu menu);
+
 }
