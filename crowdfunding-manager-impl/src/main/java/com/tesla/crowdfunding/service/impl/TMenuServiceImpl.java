@@ -48,4 +48,10 @@ public class TMenuServiceImpl implements TMenuService {
 
 		return menuList;
 	}
+
+	@Override
+	public List<TMenu> listMenuAllTree() {
+		// TODO Auto-generated method stub
+		return menuMapper.selectByExample(null);
+	}
 }

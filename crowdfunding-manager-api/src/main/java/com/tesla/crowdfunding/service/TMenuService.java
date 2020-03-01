@@ -6,6 +6,8 @@ import com.tesla.crowdfunding.bean.TMenu;
 
 public interface TMenuService {
 
-	List<TMenu> listMenuAll();
+	List<TMenu> listMenuAll();// 组合了父子关系的
+
+	List<TMenu> listMenuAllTree();
 
 }
