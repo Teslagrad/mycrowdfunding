@@ -1,5 +1,6 @@
 package com.tesla.crowdfunding.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
@@ -16,5 +17,9 @@ public interface TRoleService {
 	void updateTRole(TRole role);
 
 	void deleteTRole(Integer id);
+
+	List<TRole> listAllRole();
+
+	List<Integer> getRoleIdByAdminId(String id);
 
 }

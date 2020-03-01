@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TRole;
 import com.tesla.crowdfunding.bean.TRoleExample;
+import com.tesla.crowdfunding.mapper.TAdminRoleMapper;
 import com.tesla.crowdfunding.mapper.TRoleMapper;
 import com.tesla.crowdfunding.service.TRoleService;
 
@@ -18,6 +19,9 @@ public class TRoleServiceImpl implements TRoleService {
 
 	@Autowired
 	TRoleMapper roleMapper;
+
+	@Autowired
+	TAdminRoleMapper adminRoleMapper;
 
 	@Override
 	public PageInfo<TRole> listRolePage(Map<String, Object> paramMap) {
@@ -61,5 +65,15 @@ public class TRoleServiceImpl implements TRoleService {
 	@Override
 	public void deleteTRole(Integer id) {
 		roleMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public List<TRole> listAllRole() {
+		return roleMapper.selectByExample(null);
+	}
+
+	@Override
+	public List<Integer> getRoleIdByAdminId(String id) {
+		return adminRoleMapper.getRoleIdByAdminId(id);
 	}
 }

@@ -6,6 +6,14 @@
     <result column="adminid" jdbcType="INTEGER" property="adminid" />
     <result column="roleid" jdbcType="INTEGER" property="roleid" />
   </resultMap>
+  
+  <!-- List<Integer> getRoleIdByAdminId(String id); -->
+  <select id="getRoleIdByAdminId" resultType="java.lang.Integer">
+  		select roleid from t_admin_role where adminid=#{id}
+  </select>
+  
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
