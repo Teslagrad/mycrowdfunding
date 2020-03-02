@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="zh_CN">
   <head>
@@ -43,7 +44,9 @@
   <button id="queryBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+<security:authorize access="hasRole('PM - 项目经理')">
 <button id="addBtn" type="button" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> 新增</button>
+</security:authorize>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -300,9 +303,11 @@
 						$("#addModal input[name='name']").val("");
 						initData(1);//添加初始化第一页，倒叙排序
 					});
+				}else if("403"== result){
+					layer.msg("您无权访问该功能 !");
 				}else{
 					layer.msg("保存失败");
-				}	
+				}
 			}
 			
 		});

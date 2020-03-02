@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -68,7 +67,8 @@ public class SecurityUserDetailServiceImpl implements UserDetailsService {
 				authorities.add(new SimpleGrantedAuthority(permission.getName()));
 			}
 			log.debug("用户权限总集合:{}", authorities);
-			return new User(admin.getLoginacct(), admin.getUserpswd(), authorities);
+			// return new User(admin.getLoginacct(), admin.getUserpswd(), authorities);
+			return new TSecurityAdmin(admin, authorities);
 		} else {
 			return null;
 		}

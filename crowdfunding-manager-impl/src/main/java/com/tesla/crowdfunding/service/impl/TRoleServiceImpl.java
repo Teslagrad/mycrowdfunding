@@ -49,6 +49,7 @@ public class TRoleServiceImpl implements TRoleService {
 		return page;
 	}
 
+	// @PreAuthorize("hasRole('PM - 项目经理')")
 	@Override
 	public void saveTRole(TRole role) {
 
