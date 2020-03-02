@@ -31,4 +31,6 @@ public interface TPermissionMapper {
 	int updateByPrimaryKey(TPermission record);
 
 	List<TPermission> getPermissionByMenuid(Integer mid);
+
+	List<TPermission> listPermissionByAdminId(Integer adminId);
 }
