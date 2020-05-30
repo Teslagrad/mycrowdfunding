@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TAdmin;
+import com.tesla.crowdfunding.bean.TProject;
 import com.tesla.crowdfunding.bean.TRole;
 import com.tesla.crowdfunding.service.TAdminService;
 import com.tesla.crowdfunding.service.TRoleService;
@@ -31,6 +32,35 @@ public class TAdminController {
 
 	@Autowired
 	TRoleService roleService;
+
+	@RequestMapping("/authProject/doAuth")
+	public String doAuth(Integer id, Integer pageNum) {
+		log.debug("处理认证项目。。。");
+		adminService.updateProject(id);
+
+		log.debug("认证项目成功跳转回认证页面当前页");
+		return "redirect:/auth_project/index?pageNum=" + pageNum;
+	}
+
+	@RequestMapping("/auth_project/index")
+	public String authProject(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize, Model model,
+			@RequestParam(value = "condition", required = false, defaultValue = "") String condition) {
+		log.debug("pageNum={}", pageNum);
+		log.debug("pageSize={}", pageSize);
+		log.debug("condition={}", condition);
+
+		PageHelper.startPage(pageNum, pageSize);// 线程绑定
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("condition", condition);
+
+		PageInfo<TProject> page = adminService.listProjectPage(paramMap);
+
+		model.addAttribute("page", page);
+
+		return "admin/authProject";
+	}
 
 	@ResponseBody
 	@RequestMapping("/admin/doUnAssign")

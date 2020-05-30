@@ -12,8 +12,11 @@ import com.github.pagehelper.PageInfo;
 import com.tesla.crowdfunding.bean.TAdmin;
 import com.tesla.crowdfunding.bean.TAdminExample;
 import com.tesla.crowdfunding.bean.TAdminExample.Criteria;
+import com.tesla.crowdfunding.bean.TProject;
+import com.tesla.crowdfunding.bean.TProjectExample;
 import com.tesla.crowdfunding.exception.LoginException;
 import com.tesla.crowdfunding.mapper.TAdminMapper;
+import com.tesla.crowdfunding.mapper.TProjectMapper;
 import com.tesla.crowdfunding.service.TAdminService;
 import com.tesla.crowdfunding.util.AppDateUtils;
 import com.tesla.crowdfunding.util.Const;
@@ -24,6 +27,9 @@ public class TAdminServiceImpl implements TAdminService {
 	Logger log = LoggerFactory.getLogger(TAdminServiceImpl.class);
 	@Autowired
 	TAdminMapper adminMapper;
+
+	@Autowired
+	TProjectMapper projectMapper;
 
 	@Override
 	public TAdmin getTAdminByLogin(Map<String, Object> paramMap) {
@@ -105,6 +111,22 @@ public class TAdminServiceImpl implements TAdminService {
 	}
 
 	@Override
+	public PageInfo<TProject> listProjectPage(Map<String, Object> paramMap) {
+		String condition = (String) paramMap.get("condition");
+
+		TProjectExample example = new TProjectExample();
+
+		example.createCriteria().andStatusEqualTo("0");
+		// example.setOrderByClause("createtime desc");// 根据日期条件，倒叙
+
+		List<TProject> list = projectMapper.selectByExample(example);
+
+		PageInfo<TProject> page = new PageInfo<TProject>(list, 5);
+
+		return page;
+	}
+
+	@Override
 	public void saveTAdmin(TAdmin admin) {
 
 		admin.setUserpswd(MD5Util.digest(Const.DEFAULT_USERPSWD));
@@ -134,9 +156,23 @@ public class TAdminServiceImpl implements TAdminService {
 	}
 
 	@Override
+	public void updateProject(Integer id) {
+		log.debug("----------------id----------------------------{}", id);
+
+		TProject project = new TProject();
+		project.setId(id);
+		project.setStatus("1");
+
+		log.debug("--------------------project------------------------{}", project);
+		projectMapper.updateByPrimaryKeySelective(project);
+
+	}
+
+	@Override
 	public void deleteBatch(List<Integer> idList) {
 
 		adminMapper.deleteBatch(idList);// 自己定义一个批量删除的操作
 
 	}
+
 }

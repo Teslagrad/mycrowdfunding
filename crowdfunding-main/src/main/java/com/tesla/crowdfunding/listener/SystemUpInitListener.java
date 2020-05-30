@@ -23,7 +23,7 @@ public class SystemUpInitListener implements ServletContextListener {
 	// 当application创建时执行初始化方法
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
+		//
 		ServletContext application = sce.getServletContext();
 		String contextPath = application.getContextPath();
 		log.debug("当前上下文的路径:{}", contextPath);
@@ -33,7 +33,7 @@ public class SystemUpInitListener implements ServletContextListener {
 	// 当application销毁时执行销毁方法
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
+		//
 		log.debug("当前应用application对象被销毁");
 	}
 

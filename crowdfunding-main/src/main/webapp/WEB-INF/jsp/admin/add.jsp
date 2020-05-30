@@ -32,7 +32,7 @@
 				  <li class="active">新增</li>
 				</ol>
 			<div class="panel panel-default">
-              <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
+              <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"></div></div>
 			  <div class="panel-body">
 				<form  id="addForm" action="${PATH}/admin/doAdd" method="post">
 				  <div class="form-group">
@@ -49,7 +49,7 @@
 					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
 				  </div>
 				  <button id="saveBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				  <!-- <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button> -->
 				</form>
 			  </div>
 			</div>

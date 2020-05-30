@@ -20,7 +20,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <div><a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a></div>
+          <div><a class="navbar-brand" href="index.html" style="font-size:32px;">众筹网-创意产品众筹平台</a></div>
         </div>
       </div>
     </nav>
@@ -49,12 +49,12 @@
             <input type="checkbox" name="remember-me"> 记住我
           </label>
           <br>
-          <label>
+          <!-- <label>
             忘记密码
-          </label>
-          <label style="float:right">
+          </label> -->
+          <!-- <label style="float:right">
             <a href="reg.html">我要注册</a>
-          </label>
+          </label> -->
         </div>
         <a class="btn btn-lg btn-success btn-block" onclick="dologin()" > 登录</a>
       </form>
